@@ -1,0 +1,16 @@
+pipeline {
+    agent {
+        docker { image 'hashicorp/terraform' 
+                 args  '--entrypoint="" -u root -v /opt/jenkins/.aws:/root/.aws'
+        }
+    }
+    stages {
+        stage('Terraform') {
+            steps {
+                sh 'terraform --version'
+                sh 'terraform init'
+                sh 'terraform plan'
+            }
+        }
+    }
+}
